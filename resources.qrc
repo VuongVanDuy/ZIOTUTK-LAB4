@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>iconsApp/disc.png</file>
+    <file>iconsApp/file.png</file>
+    <file>iconsApp/play-circle.png</file>
+    <file>iconsApp/volume-1.png</file>
+    <file>iconsApp/volume-2.png</file>
+  </qresource>
+</RCC>

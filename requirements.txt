@@ -1,0 +1,8 @@
+pyside6
+numpy
+scipy
+matplotlib
+soundfile
+sounddevice
+pyinstaller
+librosa
