@@ -1,4 +1,5 @@
 from PySide6.QtWidgets import QApplication, QMainWindow, QListWidgetItem, QMessageBox, QFileDialog
+from PySide6.QtCore import QTimer, QThread, Signal
 from .view import Ui_MainWindow
 from customWidgets.controller import QCustomWidget
 from model.generator import GeneratorNoise
@@ -7,7 +8,19 @@ import os
 import sys
 import soundfile as sf
 import sounddevice as sd
+import time
 import numpy as np
+
+class GeneratorThread(QThread):
+    finished = Signal()
+
+    def __init__(self, generator):
+        super().__init__()
+        self.generator = generator
+
+    def run(self):
+        self.generator.generate()
+        self.finished.emit()
 
 class MainHandle(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -18,6 +31,7 @@ class MainHandle(QMainWindow, Ui_MainWindow):
         # Initialize variables
         self.output_file_noise = None
         self.generator = None
+        self.thread = None
 
         # Button connections
         self.btnChooseFile.clicked.connect(self.show_custom_widget)
@@ -31,17 +45,36 @@ class MainHandle(QMainWindow, Ui_MainWindow):
         self.pathSaveVoice.textChanged.connect(self.changeLabelPathVoice)
 
     def show_custom_widget(self):
-        self.set_sate_btns([self.playNoiseButton, self.showSpectrumButton, self.compareButton],
-                           False)
         self.custom_widget = QCustomWidget()
         self.custom_widget.show()
         self.custom_widget.accepted.connect(self.set_list_widget)
 
     def set_list_widget(self, file_list):
+        if not file_list:
+            QMessageBox.warning(self, "Warning", "No files selected.")
+            return
         self.listWidget.clear()
+        self.set_sate_btns([self.playNoiseButton, self.showSpectrumButton], False)
+        # set 0 for progress bar
+        self.progressBar.setValue(0)
+        # quit thread if it is running
+        if isinstance(self.thread, QThread):
+            del self.thread
+            self.thread = None
+        if isinstance(self.generator, GeneratorNoise):
+            del self.generator
+            self.generator = None
+
         for file in file_list:
             item = QListWidgetItem(file)
             self.listWidget.addItem(item)
+
+    def update_progress(self, start_time):
+        elapsed = time.time() - start_time
+        progress = min(int((elapsed / 10) * 100), 100)
+        self.progressBar.setValue(progress)
+        QApplication.processEvents()
+        return progress < 100
 
     def generate_noise(self):
         # Get selected voice files
@@ -56,13 +89,24 @@ class MainHandle(QMainWindow, Ui_MainWindow):
         # Generate noise
         self.generator = GeneratorNoise(voices_path=voices_path, fs=None,
                                         volume_voice=volume_voice, volume_noise=volume_noise)
-        self.generator.generate()
 
-        # Save to file
+        start_time = time.time()
+
+        # Update progress while generating
+        timer = QTimer()
+        timer.timeout.connect(lambda: self.update_progress(start_time))
+        timer.start(100)  # Update every 100ms
+
+        # Run the generator in a separate thread
+        self.thread = GeneratorThread(self.generator)
+        self.thread.finished.connect(lambda: timer.stop())
+        self.thread.finished.connect(lambda: self.progressBar.setValue(100))
+        self.thread.finished.connect(lambda: self.set_sate_btns(
+            [self.playNoiseButton, self.showSpectrumButton, self.compareButton], True))
         self.output_file_noise = os.path.join(DIR, 'output_noise.wav')
-        self.generator.save_to_file(self.output_file_noise, self.generator.noise)
-        self.set_sate_btns([ self.playNoiseButton, self.showSpectrumButton, self.compareButton],
-                           True)
+        self.thread.finished.connect(lambda: self.generator.save_to_file(
+            self.output_file_noise, self.generator.noise))
+        self.thread.start()
 
     def on_play_noise(self):
         if self.output_file_noise:
@@ -160,6 +204,20 @@ class MainHandle(QMainWindow, Ui_MainWindow):
     def set_sate_btns(self, list_btns, state=True):
         for btn in list_btns:
             btn.setEnabled(state)
+
+    def reset_app(self):
+        self.listWidget.clear()
+        self.pathSaveVoice.clear()
+        self.set_sate_btns([self.playNoiseButton, self.showSpectrumButton, self.compareButton], False)
+        self.progressBar.setValue(0)
+        self.voiceVolumeSlider.setValue(40)
+        self.noiseVolumeSlider.setValue(10)
+        if isinstance(self.thread, QThread):
+            del self.thread
+            self.thread = None
+        if isinstance(self.generator, GeneratorNoise):
+            del self.generator
+            self.generator = None
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

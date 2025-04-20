@@ -102,6 +102,41 @@ class Ui_MainWindow(object):
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.progressBar.sizePolicy().hasHeightForWidth())
         self.progressBar.setSizePolicy(sizePolicy2)
+        self.progressBar.setStyleSheet(u"/* Bi\u1ec3u qu\u00e9t n\u1ec1n c\u1ee7a progress bar */\n"
+"QProgressBar {\n"
+"    border: 1px solid #bbb;\n"
+"    border-radius: 10px;\n"
+"    background-color: #eee;\n"
+"    text-align: center;\n"
+"    padding: 2px;\n"
+"    font: 14px \"Segoe UI\", sans-serif;\n"
+"    color: #555;\n"
+"}\n"
+"\n"
+"/* Ph\u1ea7n fill c\u1ee7a progress bar */\n"
+"QProgressBar::chunk {\n"
+"    border-radius: 10px;\n"
+"    background: qlineargradient(\n"
+"        x1:0, y1:0, x2:1, y2:0,\n"
+"        stop:0 #6a9ef7, stop:0.5 #4a7cf3, stop:1 #3362dd\n"
+"    );\n"
+"    margin: 0px 1px;    /* kho\u1ea3ng c\u00e1ch gi\u1eefa c\u00e1c chunk \u0111\u1ec3 t\u1ea1o hi\u1ec7u \u1ee9ng v\u00e2n s\u00f3ng */\n"
+"}\n"
+"\n"
+"/* Hi\u1ec7u \u1ee9ng khi hover l\u00ean bar */\n"
+"QProgressBar:hover {\n"
+"    background-color: #e0e0e0;\n"
+"}\n"
+"\n"
+"/* Hi\u1ec7u \u1ee9ng khi progress \u0111\u1ea1t 100% */\n"
+"QProgressBar[maximum=\"100\"][value=\"100\"]::chunk {\n"
+"    background: qlineargradient(\n"
+"        x1:0, y1:0, x2:1, y2:0,\n"
+"        sto"
+                        "p:0 #61d742, stop:0.5 #4fb73a, stop:1 #3da832\n"
+"    );\n"
+"}\n"
+"")
         self.progressBar.setValue(0)
 
         self.gridLayout.addWidget(self.progressBar, 3, 0, 1, 3)

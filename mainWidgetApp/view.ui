@@ -141,6 +141,42 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="styleSheet">
+         <string notr="true">/* Biểu quét nền của progress bar */
+QProgressBar {
+    border: 1px solid #bbb;
+    border-radius: 10px;
+    background-color: #eee;
+    text-align: center;
+    padding: 2px;
+    font: 14px &quot;Segoe UI&quot;, sans-serif;
+    color: #555;
+}
+
+/* Phần fill của progress bar */
+QProgressBar::chunk {
+    border-radius: 10px;
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:0,
+        stop:0 #6a9ef7, stop:0.5 #4a7cf3, stop:1 #3362dd
+    );
+    margin: 0px 1px;    /* khoảng cách giữa các chunk để tạo hiệu ứng vân sóng */
+}
+
+/* Hiệu ứng khi hover lên bar */
+QProgressBar:hover {
+    background-color: #e0e0e0;
+}
+
+/* Hiệu ứng khi progress đạt 100% */
+QProgressBar[maximum=&quot;100&quot;][value=&quot;100&quot;]::chunk {
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:0,
+        stop:0 #61d742, stop:0.5 #4fb73a, stop:1 #3da832
+    );
+}
+</string>
+        </property>
         <property name="value">
          <number>0</number>
         </property>
