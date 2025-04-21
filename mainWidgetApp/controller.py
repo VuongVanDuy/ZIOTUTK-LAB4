@@ -224,7 +224,6 @@ class MainHandle(QMainWindow, Ui_MainWindow):
         except Exception as e:
             print(f"Error playing audio: {e}")
 
-
     def set_sate_btns(self, list_btns, state=True):
         for btn in list_btns:
             btn.setEnabled(state)
