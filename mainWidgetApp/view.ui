@@ -6,12 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>760</width>
-    <height>488</height>
+    <width>780</width>
+    <height>517</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Speech Noise Generator</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../resources.qrc">
+    <normaloff>:/icons/iconsApp/generator_noise_app.png</normaloff>:/icons/iconsApp/generator_noise_app.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -54,6 +58,12 @@
          <iconset resource="../resources.qrc">
           <normaloff>:/icons/iconsApp/file.png</normaloff>:/icons/iconsApp/file.png</iconset>
         </property>
+        <property name="iconSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
        </widget>
       </item>
       <item row="0" column="0">
@@ -72,7 +82,7 @@
       <item row="1" column="2" alignment="Qt::AlignmentFlag::AlignHCenter">
        <widget class="QPushButton" name="generateButton">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -85,6 +95,16 @@
         </property>
         <property name="text">
          <string>Generate Noise</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../resources.qrc">
+          <normaloff>:/icons/iconsApp/Generator.png</normaloff>:/icons/iconsApp/Generator.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
         </property>
        </widget>
       </item>
@@ -464,10 +484,11 @@ QProgressBar[maximum=&quot;100&quot;][value=&quot;100&quot;]::chunk {
     min-height: 30px;
     max-width: 30px;
     max-height: 30px;
-    background-color: #f0f0f0;
+    background-color:#ef4927;
     color: #333;
     border: 1px solid #bbb;
 }
+
 
 /* Hiệu ứng khi rê chuột vào */
 QPushButton:hover {
@@ -489,6 +510,26 @@ QPushButton:pressed {
         <property name="icon">
          <iconset resource="../resources.qrc">
           <normaloff>:/icons/iconsApp/disc.png</normaloff>:/icons/iconsApp/disc.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnPlayVoice">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../resources.qrc">
+          <normaloff>:/icons/iconsApp/play.png</normaloff>:/icons/iconsApp/play.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -534,7 +575,7 @@ QPushButton:pressed {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>760</width>
+     <width>780</width>
      <height>33</height>
     </rect>
    </property>

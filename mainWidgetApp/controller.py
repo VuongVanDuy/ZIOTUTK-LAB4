@@ -41,6 +41,7 @@ class MainHandle(QMainWindow, Ui_MainWindow):
         self.compareButton.clicked.connect(self.show_compare_with_user_voice)
         self.btnRecord.clicked.connect(self.start_recording)
         self.btnChoose.clicked.connect(self.choose_file_voice_user)
+        self.btnPlayVoice.clicked.connect(self.play_voice)
         self.radioButtonRecord.toggled.connect(self.changeRadioBtnRecord)
         self.pathSaveVoice.textChanged.connect(self.changeLabelPathVoice)
 
@@ -154,8 +155,10 @@ class MainHandle(QMainWindow, Ui_MainWindow):
     def changeLabelPathVoice(self):
         if not self.pathSaveVoice.text():
             self.compareButton.setEnabled(False)
+            self.btnPlayVoice.setEnabled(False)
         else:
             self.compareButton.setEnabled(True)
+            self.btnPlayVoice.setEnabled(True)
 
     def start_recording(self):
         try:
@@ -199,6 +202,27 @@ class MainHandle(QMainWindow, Ui_MainWindow):
             self.pathSaveVoice.setText(selected_path)
         else:
             QMessageBox.warning(self, "Warning", "No file selected.")
+
+    def play_voice(self):
+        path_file = self.pathSaveVoice.text().strip()
+        if not path_file:
+            QMessageBox.warning(self, "Warning", "No file to play.")
+            return
+
+        abs_path = os.path.abspath(path_file)
+        if not os.path.exists(path_file):
+            print(f"File not found: {abs_path}")
+            return
+
+        print(f"Attempting to play file: {abs_path}")
+
+        try:
+            data, samplerate = sf.read(abs_path)
+            print("▶️ Playing audio...")
+            sd.play(data, samplerate)
+            sd.wait()  # Wait until playback is finished
+        except Exception as e:
+            print(f"Error playing audio: {e}")
 
 
     def set_sate_btns(self, list_btns, state=True):

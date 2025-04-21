@@ -5,7 +5,7 @@ a = Analysis(
     ['mainApp.py'],
     pathex=[],
     binaries=[],
-    datas=[('data_samples', 'data_samples')],
+    datas=[('data_samples', 'data_samples'), ('my_voice.wav', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

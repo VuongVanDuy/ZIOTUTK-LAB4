@@ -26,7 +26,10 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(760, 488)
+        MainWindow.resize(780, 517)
+        icon = QIcon()
+        icon.addFile(u":/icons/iconsApp/generator_noise_app.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        MainWindow.setWindowIcon(icon)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_2 = QVBoxLayout(self.centralwidget)
@@ -54,9 +57,10 @@ class Ui_MainWindow(object):
         font1 = QFont()
         font1.setPointSize(12)
         self.btnChooseFile.setFont(font1)
-        icon = QIcon()
-        icon.addFile(u":/icons/iconsApp/file.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.btnChooseFile.setIcon(icon)
+        icon1 = QIcon()
+        icon1.addFile(u":/icons/iconsApp/file.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.btnChooseFile.setIcon(icon1)
+        self.btnChooseFile.setIconSize(QSize(20, 20))
 
         self.gridLayout.addWidget(self.btnChooseFile, 1, 0, 1, 1)
 
@@ -66,12 +70,19 @@ class Ui_MainWindow(object):
 
         self.generateButton = QPushButton(self.centralwidget)
         self.generateButton.setObjectName(u"generateButton")
-        sizePolicy.setHeightForWidth(self.generateButton.sizePolicy().hasHeightForWidth())
-        self.generateButton.setSizePolicy(sizePolicy)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.generateButton.sizePolicy().hasHeightForWidth())
+        self.generateButton.setSizePolicy(sizePolicy1)
         font2 = QFont()
         font2.setFamilies([u"Segoe UI"])
         font2.setPointSize(12)
         self.generateButton.setFont(font2)
+        icon2 = QIcon()
+        icon2.addFile(u":/icons/iconsApp/Generator.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.generateButton.setIcon(icon2)
+        self.generateButton.setIconSize(QSize(20, 20))
 
         self.gridLayout.addWidget(self.generateButton, 1, 2, 1, 1, Qt.AlignmentFlag.AlignHCenter)
 
@@ -81,11 +92,11 @@ class Ui_MainWindow(object):
 
         self.listWidget = QListWidget(self.centralwidget)
         self.listWidget.setObjectName(u"listWidget")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.listWidget.sizePolicy().hasHeightForWidth())
-        self.listWidget.setSizePolicy(sizePolicy1)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.listWidget.sizePolicy().hasHeightForWidth())
+        self.listWidget.setSizePolicy(sizePolicy2)
         self.listWidget.setMinimumSize(QSize(500, 0))
         self.listWidget.setViewMode(QListView.ViewMode.ListMode)
 
@@ -97,11 +108,11 @@ class Ui_MainWindow(object):
 
         self.progressBar = QProgressBar(self.centralwidget)
         self.progressBar.setObjectName(u"progressBar")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.progressBar.sizePolicy().hasHeightForWidth())
-        self.progressBar.setSizePolicy(sizePolicy2)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.progressBar.sizePolicy().hasHeightForWidth())
+        self.progressBar.setSizePolicy(sizePolicy3)
         self.progressBar.setStyleSheet(u"/* Bi\u1ec3u qu\u00e9t n\u1ec1n c\u1ee7a progress bar */\n"
 "QProgressBar {\n"
 "    border: 1px solid #bbb;\n"
@@ -230,9 +241,9 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.playNoiseButton.sizePolicy().hasHeightForWidth())
         self.playNoiseButton.setSizePolicy(sizePolicy)
         self.playNoiseButton.setFont(font1)
-        icon1 = QIcon()
-        icon1.addFile(u":/icons/iconsApp/play-circle.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.playNoiseButton.setIcon(icon1)
+        icon3 = QIcon()
+        icon3.addFile(u":/icons/iconsApp/play-circle.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.playNoiseButton.setIcon(icon3)
 
         self.horizontalLayout.addWidget(self.playNoiseButton)
 
@@ -280,7 +291,7 @@ class Ui_MainWindow(object):
         self.btnChoose.setObjectName(u"btnChoose")
         self.btnChoose.setEnabled(False)
         self.btnChoose.setFont(font1)
-        self.btnChoose.setIcon(icon)
+        self.btnChoose.setIcon(icon1)
         self.btnChoose.setIconSize(QSize(30, 30))
 
         self.horizontalLayout_2.addWidget(self.btnChoose)
@@ -294,10 +305,11 @@ class Ui_MainWindow(object):
 "    min-height: 30px;\n"
 "    max-width: 30px;\n"
 "    max-height: 30px;\n"
-"    background-color: #f0f0f0;\n"
+"    background-color:#ef4927;\n"
 "    color: #333;\n"
 "    border: 1px solid #bbb;\n"
 "}\n"
+"\n"
 "\n"
 "/* Hi\u1ec7u \u1ee9ng khi r\u00ea chu\u1ed9t v\u00e0o */\n"
 "QPushButton:hover {\n"
@@ -312,12 +324,22 @@ class Ui_MainWindow(object):
 "    border: 1px solid #666;\n"
 "}\n"
 "")
-        icon2 = QIcon()
-        icon2.addFile(u":/icons/iconsApp/disc.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.btnRecord.setIcon(icon2)
+        icon4 = QIcon()
+        icon4.addFile(u":/icons/iconsApp/disc.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.btnRecord.setIcon(icon4)
         self.btnRecord.setIconSize(QSize(30, 30))
 
         self.horizontalLayout_2.addWidget(self.btnRecord)
+
+        self.btnPlayVoice = QPushButton(self.centralwidget)
+        self.btnPlayVoice.setObjectName(u"btnPlayVoice")
+        self.btnPlayVoice.setEnabled(False)
+        icon5 = QIcon()
+        icon5.addFile(u":/icons/iconsApp/play.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.btnPlayVoice.setIcon(icon5)
+        self.btnPlayVoice.setIconSize(QSize(30, 30))
+
+        self.horizontalLayout_2.addWidget(self.btnPlayVoice)
 
         self.pathSaveVoice = QLineEdit(self.centralwidget)
         self.pathSaveVoice.setObjectName(u"pathSaveVoice")
@@ -339,7 +361,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 760, 33))
+        self.menubar.setGeometry(QRect(0, 0, 780, 33))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -365,6 +387,7 @@ class Ui_MainWindow(object):
         self.radioButtonChoose.setText(QCoreApplication.translate("MainWindow", u"Choose file", None))
         self.btnChoose.setText("")
         self.btnRecord.setText("")
+        self.btnPlayVoice.setText("")
         self.compareButton.setText(QCoreApplication.translate("MainWindow", u"Compare with My Voice", None))
     # retranslateUi
 

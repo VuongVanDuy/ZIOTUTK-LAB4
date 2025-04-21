@@ -1,6 +1,9 @@
 <RCC>
   <qresource prefix="icons">
+    <file>iconsApp/play.png</file>
     <file>iconsApp/disc.png</file>
+    <file>iconsApp/Generator.png</file>
+    <file>iconsApp/generator_noise_app.png</file>
     <file>iconsApp/file.png</file>
     <file>iconsApp/play-circle.png</file>
     <file>iconsApp/volume-1.png</file>
